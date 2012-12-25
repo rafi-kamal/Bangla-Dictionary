@@ -5,32 +5,60 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnKeyListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Dictionary extends Activity {
-    /** Called when the activity is first created. */
+	private EditText input;
+	private Button clear;
+	private TextView output;
+	private DictionaryDB dictionaryDB;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        WordList wordList = new WordList(getBaseContext());
-        SQLiteDatabase db = wordList.getWritableDatabase();
-        db.close();
-        SQLiteDatabase database = wordList.getReadableDatabase();
-        Toast.makeText(getBaseContext(), "Database Generated", Toast.LENGTH_SHORT).show();
-        String sql = "SELECT * FROM `words` WHERE `en_word` = 'nine'";
-        Cursor cursor = database.rawQuery(sql, null);
-        Toast.makeText(getBaseContext(), "Query completed", Toast.LENGTH_SHORT).show();
+        
+        dictionaryDB = new DictionaryDB(getBaseContext());
+        input = (EditText) findViewById(R.id.input);
+        clear = (Button) findViewById(R.id.clear);
+        output = (TextView) findViewById(R.id.output);
+        
+        input.setOnKeyListener(new OnKeyListener() {
+			
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                	translatedWord(input.getText().toString());
+                	return true;
+				}
+				return false;
+			}
+		});
+        output.setTypeface(Typeface.createFromAsset(getAssets(),"SolaimanLipi.ttf"));
+        clear.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View arg0) {
+				input.setText("");
+			}
+		});
+    }
+    
+    void translatedWord(String englishWord) {
+    	String sql = "SELECT bn_word FROM " + DictionaryDB.TABLE_NAME +
+    			" WHERE en_word = '" + englishWord + "'";
+        
+        SQLiteDatabase db = dictionaryDB.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+    	
         if(cursor.moveToFirst()) {
-        	Log.d("", cursor.getString(0));
-        	Log.d("", cursor.getString(1));
-        	Log.d("", cursor.getString(2));
-        	Toast.makeText(getBaseContext(), "রাফি", Toast.LENGTH_SHORT).show();
-        	TextView textView = (TextView) findViewById(R.id.textView1);
-        	textView.setTypeface(Typeface.createFromAsset(getAssets(),"SolaimanLipi.ttf"));
-        	textView.setText(cursor.getString(2));
+        	output.setText(cursor.getString(0));
         }
+        else
+        	output.setText("Sorry, word not found");
     }
 }
