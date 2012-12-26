@@ -9,12 +9,12 @@
   -->
  <item 
      android:id="@+id/bookmarked_words"
-     android:title="Bookmarked Words"
+     android:title="Bookmarkes"
      android:icon="@drawable/bookmarked_words"  
      android:showAsAction="ifRoom"/>
  <item 
      android:id="@+id/about"
-     android:title="About Us"
+     android:title="About"
      android:icon="@drawable/about"  
      android:showAsAction="ifRoom"/>
 </menu>

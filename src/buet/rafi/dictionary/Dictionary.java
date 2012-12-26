@@ -1,27 +1,19 @@
 package buet.rafi.dictionary;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class Dictionary extends ListActivity {
 	private EditText input;
-	private Button clear;
 	
 	private DictionaryDB dictionaryDB;
 	private WordListAdapter adapter;
@@ -38,7 +30,6 @@ public class Dictionary extends ListActivity {
         dictionaryDB = new DictionaryDB(initializer);
         
         input = (EditText) findViewById(R.id.input);
-        clear = (Button) findViewById(R.id.clear);
         
         adapter = new WordListAdapter(getBaseContext(), dictionaryDB);
 		setListAdapter(adapter);
@@ -58,15 +49,6 @@ public class Dictionary extends ListActivity {
 				
 			}
 		});
-        
-        clear.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View view) {
-				input.setText("");
-			}
-		});
-        
-        loadData("");
     }
     
     private void loadData(String word) {
@@ -88,6 +70,9 @@ public class Dictionary extends ListActivity {
     		startActivity(intent);
     	}
     	else if(item.getItemId() == R.id.about) {
+    		Intent intent = new Intent(this, About.class);
+    		startActivity(intent);
+    		/*
     		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
     		
     		TextView textView = new TextView(this);
@@ -98,6 +83,7 @@ public class Dictionary extends ListActivity {
     		dialog.setView(textView);
     		dialog.setNeutralButton("Ok", null);
     		dialog.show();
+    		*/
     	}
     	/*
     	else if(item.getItemId() == R.id.add_new) {

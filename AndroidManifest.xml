@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="BookMarkedWords"></activity>
+        <activity android:name="About"></activity>
     </application>
 
 </manifest>
