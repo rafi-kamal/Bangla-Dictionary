@@ -10,27 +10,17 @@ import android.os.AsyncTask;
 
 public class DataLoader extends AsyncTask<String, Void, List<Bean>> {
 	
-	private SQLiteDatabase db;
+	private DictionaryDB dictionaryDB;
 	private WordListAdapter adapter;
 	
-	public DataLoader(SQLiteDatabase db, WordListAdapter adapter) {
-		this.db = db;
+	public DataLoader(DictionaryDB dictionaryDB, WordListAdapter adapter) {
+		this.dictionaryDB = dictionaryDB;
 		this.adapter = adapter;
 	}
 
 	@Override
 	protected List<Bean> doInBackground(String... params) {
-		String sql = "SELECT " + Dictionary.ENGLISH + ", " + Dictionary.BANGLA + " FROM " + Dictionary.TABLE_NAME +
-    			" WHERE " + Dictionary.ENGLISH + " >= '" + params[0] + "' LIMIT 10";
-        
-        Cursor cursor = db.rawQuery(sql, null);
-        
-        List<Bean> wordList = new ArrayList<Bean>();
-        while(cursor.moveToNext()) {
-			wordList.add(new Bean(cursor.getString(0), cursor.getString(1)));
-		}
-        
-        return wordList;
+		return dictionaryDB.getWords(params[0]);
 	}
 	
 	@Override
