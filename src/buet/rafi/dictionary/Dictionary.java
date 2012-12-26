@@ -20,6 +20,7 @@ public class Dictionary extends ListActivity {
 	private static final String BANGLA = "bn_word";
 	private static final String STATUS = "status";
     public static final String TABLE_NAME = "words";
+	private WordListAdapter adapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,9 @@ public class Dictionary extends ListActivity {
         db = dictionaryDB.getReadableDatabase();
         input = (EditText) findViewById(R.id.input);
         clear = (Button) findViewById(R.id.clear);
+        
+        adapter = new WordListAdapter(getBaseContext());
+		setListAdapter(adapter);
         
         input.addTextChangedListener(new TextWatcher() {
 			
@@ -61,9 +65,6 @@ public class Dictionary extends ListActivity {
     			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 15";
         
         Cursor cursor = db.rawQuery(sql, null);
-    	
-        WordListAdapter adapter = 
-				new WordListAdapter(cursor, getBaseContext());
-		setListAdapter(adapter);
+        adapter.updateEntries(cursor);
     }
 }

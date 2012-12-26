@@ -17,15 +17,13 @@ public class WordListAdapter extends BaseAdapter {
 
 	private List<Bean> wordList;
 	private Context context;
+	private LayoutInflater mLayoutInflater;
 	
-	public WordListAdapter(Cursor cursor, Context context) {
+	public WordListAdapter(Context context) {
 		this.context = context;
+		mLayoutInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		wordList = new ArrayList<Bean>();
-		
-		while(cursor.moveToNext()) {
-			wordList.add(new Bean(cursor.getString(0), cursor.getString(1)));
-		}
-		Log.d("", wordList.toString());
 	}
 
 	public int getCount() {
@@ -43,9 +41,7 @@ public class WordListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
 		if (view == null) {
-			LayoutInflater vi = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = vi.inflate(R.layout.word, null);
+			view = mLayoutInflater.inflate(R.layout.word, null);
 		}
 		TextView english = (TextView) view.findViewById(R.id.english);
 		TextView bangla = (TextView) view.findViewById(R.id.bangla);
@@ -56,5 +52,13 @@ public class WordListAdapter extends BaseAdapter {
 		
 		return view;
 	}
-
+	
+	public void updateEntries(Cursor cursor) {
+		wordList.clear();
+		while(cursor.moveToNext()) {
+			wordList.add(new Bean(cursor.getString(0), cursor.getString(1)));
+		}
+		Log.d("", wordList.toString());
+		notifyDataSetChanged();
+	}
 }
