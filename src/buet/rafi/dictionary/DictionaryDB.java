@@ -12,6 +12,7 @@ public class DictionaryDB {
 	public static final String ENGLISH = "en_word";
 	public static final String BANGLA = "bn_word";
 	public static final String STATUS = "status";
+	public static final String USER = "user_created";
     public static final String TABLE_NAME = "words";
 
 	public static final String BOOKMARKED = "b";
@@ -23,11 +24,22 @@ public class DictionaryDB {
 		this.initializer = initializer;
 	}
 	
+	/*
+	public void addWord(String englishWord, String banglaWord) {
+		SQLiteDatabase db = initializer.getWritableDatabase();
+		
+		String sql = "INSERT INTO " + TABLE_NAME + " (" + ENGLISH + 
+				", " + BANGLA + ", " + USER + ") VALUES ('" + englishWord +
+				"', '" + banglaWord + "', '" + USER_CREATED + "') ";
+		db.execSQL(sql);
+	}
+	*/
+	
 	public List<Bean> getWords(String englishWord) {
 		SQLiteDatabase db = initializer.getReadableDatabase();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 10";
+    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 30";
         
         Cursor cursor = db.rawQuery(sql, null);
         

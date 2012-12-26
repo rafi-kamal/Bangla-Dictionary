@@ -4,21 +4,20 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Dictionary extends ListActivity {
 	private EditText input;
@@ -100,6 +99,49 @@ public class Dictionary extends ListActivity {
     		dialog.setNeutralButton("Ok", null);
     		dialog.show();
     	}
+    	/*
+    	else if(item.getItemId() == R.id.add_new) {
+    		showInputDialog();
+    	}
+    	*/
     	return super.onOptionsItemSelected(item);	
     }
+    /*
+	public void showInputDialog() {
+		LayoutInflater factory = LayoutInflater.from(this);
+
+		final View addNew = factory.inflate(R.layout.add_new, null);
+
+		final EditText english = (EditText) addNew.findViewById(R.id.english_input);
+		final EditText bangla = (EditText) addNew.findViewById(R.id.Bangla_input);
+		
+		bangla.setTypeface(Typeface.createFromAsset(getAssets(), Dictionary.FONT));
+
+		final AlertDialog.Builder newWordInputDialog = new AlertDialog.Builder(this);
+		newWordInputDialog
+			.setTitle("Add a new word")
+			.setView(addNew)
+			.setPositiveButton("Save",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+
+							String englishWord = english.getText().toString();
+							String banglaWord = bangla.getText().toString();
+							dictionaryDB.addWord(englishWord, banglaWord);
+							
+							Toast.makeText(getBaseContext(), "Word Added to the Dictionary",
+									Toast.LENGTH_SHORT).show();
+						}
+					})
+			.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							
+						}
+					});
+		newWordInputDialog.show();
+	}
+	*/
 }

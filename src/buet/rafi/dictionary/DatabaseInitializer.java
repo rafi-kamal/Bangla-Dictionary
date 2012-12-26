@@ -27,7 +27,7 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
     private static String DB_NAME = "dictionary";
     private static String DB_PATH = DB_DIR + DB_NAME;
     private static String OLD_DB_PATH = DB_DIR + "old_" + DB_NAME;
-    private static final int DB_VERSION = 37;
+    private static final int DB_VERSION = 39;
 
     private final Context myContext;
 
