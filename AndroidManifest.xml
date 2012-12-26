@@ -11,6 +11,7 @@
         android:label="@string/app_name" >
         <activity
             android:name=".Dictionary"
+            android:theme="@android:style/Theme.Light"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

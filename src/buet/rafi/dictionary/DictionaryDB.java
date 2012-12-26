@@ -4,9 +4,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.GetChars;
+import android.util.Log;
 
 /**
  * @author Danny Remington - MacroSolve
@@ -24,13 +27,14 @@ public class DictionaryDB extends SQLiteOpenHelper {
     private static String DB_NAME = "dictionary";
     private static String DB_PATH = DB_DIR + DB_NAME;
     private static String OLD_DB_PATH = DB_DIR + "old_" + DB_NAME;
-    private static final int DB_VERSION = 26;
-    public static final String TABLE_NAME = "words";
+    private static final int DB_VERSION = 37;
 
     private final Context myContext;
 
     private boolean createDatabase = false;
     private boolean upgradeDatabase = false;
+    
+    private static final String TAG = DictionaryDB.class.getName();
 
     /**
      * Constructor Takes and keeps a reference of the passed context in order to
@@ -134,6 +138,7 @@ public class DictionaryDB extends SQLiteOpenHelper {
          * as created.
          */
         getWritableDatabase().close();
+        Log.d(TAG, "Copying done");
     }
 
     /*
@@ -177,6 +182,7 @@ public class DictionaryDB extends SQLiteOpenHelper {
             // } catch (Exception ex) {
             // ex.printStackTrace();
             // }
+        Log.d(TAG, "Creating new database..");
     }
 
     /**
@@ -192,6 +198,7 @@ public class DictionaryDB extends SQLiteOpenHelper {
          * creation. The copy process must be performed after the database has
          * been opened or the database will be corrupted.
          */
+    	
         upgradeDatabase = true;
 
         /*
@@ -215,6 +222,11 @@ public class DictionaryDB extends SQLiteOpenHelper {
         // } catch (Exception ex) {
         // ex.printStackTrace();
         // }
+    	/*
+    	String sql = "DROP TABLE IF EXISTS " + Dictionary.TABLE_NAME;
+    	db.execSQL(sql);
+    	onCreate(db);
+    	*/
     }
 
     /**

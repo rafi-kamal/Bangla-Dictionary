@@ -1,22 +1,25 @@
 package buet.rafi.dictionary;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class Dictionary extends Activity {
+public class Dictionary extends ListActivity {
 	private EditText input;
 	private Button clear;
-	private TextView output;
 	private DictionaryDB dictionaryDB;
+	private SQLiteDatabase db;
+	
+	private static final String ENGLISH = "en_word";
+	private static final String BANGLA = "bn_word";
+	private static final String STATUS = "status";
+    public static final String TABLE_NAME = "words";
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,41 +27,43 @@ public class Dictionary extends Activity {
         setContentView(R.layout.main);
         
         dictionaryDB = new DictionaryDB(getBaseContext());
+        dictionaryDB.initializeDataBase();
+        db = dictionaryDB.getReadableDatabase();
         input = (EditText) findViewById(R.id.input);
         clear = (Button) findViewById(R.id.clear);
-        output = (TextView) findViewById(R.id.output);
         
-        input.setOnKeyListener(new OnKeyListener() {
+        input.addTextChangedListener(new TextWatcher() {
 			
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                	translatedWord(input.getText().toString());
-                	return true;
-				}
-				return false;
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				changeList(input.getText().toString());
+			}
+			
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+			
+			public void afterTextChanged(Editable s) {
+				
 			}
 		});
-        output.setTypeface(Typeface.createFromAsset(getAssets(),"SolaimanLipi.ttf"));
+        
         clear.setOnClickListener(new View.OnClickListener() {
 			
-			public void onClick(View arg0) {
+			public void onClick(View view) {
 				input.setText("");
 			}
 		});
     }
     
-    void translatedWord(String englishWord) {
-    	String sql = "SELECT bn_word FROM " + DictionaryDB.TABLE_NAME +
-    			" WHERE en_word = '" + englishWord + "'";
+    void changeList(String englishWord) {
+    	String sql = "SELECT " + ENGLISH + ", " + BANGLA + " FROM " + TABLE_NAME +
+    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 15";
         
-        SQLiteDatabase db = dictionaryDB.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
     	
-        if(cursor.moveToFirst()) {
-        	output.setText(cursor.getString(0));
-        }
-        else
-        	output.setText("Sorry, word not found");
+        WordListAdapter adapter = 
+				new WordListAdapter(cursor, getBaseContext());
+		setListAdapter(adapter);
     }
 }
