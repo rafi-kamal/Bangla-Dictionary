@@ -16,9 +16,9 @@ public class Dictionary extends ListActivity {
 	private DictionaryDB dictionaryDB;
 	private SQLiteDatabase db;
 	
-	private static final String ENGLISH = "en_word";
-	private static final String BANGLA = "bn_word";
-	private static final String STATUS = "status";
+	public static final String ENGLISH = "en_word";
+	public static final String BANGLA = "bn_word";
+	public static final String STATUS = "status";
     public static final String TABLE_NAME = "words";
 	private WordListAdapter adapter;
 	
@@ -39,7 +39,7 @@ public class Dictionary extends ListActivity {
         input.addTextChangedListener(new TextWatcher() {
 			
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				changeList(input.getText().toString());
+				loadData(input.getText().toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -58,13 +58,11 @@ public class Dictionary extends ListActivity {
 				input.setText("");
 			}
 		});
+        loadData("");
     }
     
-    void changeList(String englishWord) {
-    	String sql = "SELECT " + ENGLISH + ", " + BANGLA + " FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 15";
-        
-        Cursor cursor = db.rawQuery(sql, null);
-        adapter.updateEntries(cursor);
+    private void loadData(String word) {
+		DataLoader loader = new DataLoader(db, adapter);
+		loader.execute(word);
     }
 }

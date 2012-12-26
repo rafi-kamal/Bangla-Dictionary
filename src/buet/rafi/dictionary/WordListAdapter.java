@@ -53,12 +53,8 @@ public class WordListAdapter extends BaseAdapter {
 		return view;
 	}
 	
-	public void updateEntries(Cursor cursor) {
-		wordList.clear();
-		while(cursor.moveToNext()) {
-			wordList.add(new Bean(cursor.getString(0), cursor.getString(1)));
-		}
-		Log.d("", wordList.toString());
+	public void updateEntries(List<Bean> wordList) {
+		this.wordList = wordList;
 		notifyDataSetChanged();
 	}
 }
