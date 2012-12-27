@@ -36,13 +36,15 @@ public class DictionaryDB {
 	*/
 	
 	public List<Bean> getWords(String englishWord) {
-		if(englishWord.length() < 2)
+		/*if(englishWord.length() < 2)
 			return new ArrayList<Bean>();
-		SQLiteDatabase db = initializer.getReadableDatabase();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " LIKE '" + englishWord + "%' ";
+    			" WHERE " + ENGLISH + " LIKE '" + englishWord + "%' ";*/
+		String sql = "SELECT * FROM " + TABLE_NAME +
+    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 200";
 		
+		SQLiteDatabase db = initializer.getReadableDatabase();
         if(db.isOpen()) {
 	        Cursor cursor = db.rawQuery(sql, null);
 	        
@@ -55,7 +57,7 @@ public class DictionaryDB {
 				wordList.add(new Bean(id, english, bangla, status));
 			}
 	        
-	        db.close();
+	        //db.close();
 	        return wordList;
         }
         return new ArrayList<Bean>();

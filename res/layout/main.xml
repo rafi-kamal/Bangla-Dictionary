@@ -23,7 +23,7 @@
 
     <ListView
         android:id="@android:id/list"
-        android:paddingTop="5dip"
+        android:paddingTop="15dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

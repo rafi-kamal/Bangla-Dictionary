@@ -8,8 +8,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.view.MotionEvent;
 import android.widget.EditText;
 
 public class Dictionary extends ListActivity {
@@ -57,11 +56,27 @@ public class Dictionary extends ListActivity {
     }
     
     @Override
+    protected void onResume() {
+    	super.onResume();
+    	//if(!input.getText().toString().equals(""))
+    	loadData(input.getText().toString());
+    }
+    
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+    
+    /*
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		if (ev.getAction() == MotionEvent.ACTION_MOVE)
+			return true;
+		return super.dispatchTouchEvent(ev);
+	}
+	*/
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

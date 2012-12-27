@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="BookMarkedWords"></activity>
-        <activity android:name="About"></activity>
+        <activity android:name="BookMarkedWords" android:label="Bookmarks"></activity>
+        <activity android:name="About" android:label="About"></activity>
     </application>
 
 </manifest>

@@ -18,19 +18,14 @@ public class About extends Activity {
 		
 		scrolling = (ScrollingTextView)findViewById(R.id.scrolling);
 		String scrollingText = "Ridmik Dicionary is a free\n and open source application developed by\n";
-		scrollingText += "Rafi Kamal\nBUET '10, CSE\n";
+		scrollingText += "\nRafi Kamal\n\n";
 		scrollingText += "Your support and suggestions\nare very important to make it better!\n";
 		scrollingText += "\nThanks to:\n\n";
-		scrollingText += "Nayeem Islam,\n for the icons of Ridmik Blue theme!\n";
-		scrollingText += "&\n the awesome logo!\n\n";
-		scrollingText += "Nahian Islam Rahat,\n for the name!\n";
-		scrollingText += "&\n";
 		scrollingText += "Shamim Hasnath, Saminur Islam,\nJamshed Khan Mukut, Hasan Almir,\n";
 		scrollingText += "Anika Tabassum, Faysal Hossain\n";
-		scrollingText += "and\nShawly Samira\n";
+		scrollingText += "and\nShawly Samira\n\n";
 		scrollingText += "for the friendly support!";
 		scrolling.setText(scrollingText);
-		
 	}
 	
 	public void commentClicked(View v){
@@ -45,7 +40,7 @@ public class About extends Activity {
 		    gmailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
 		    gmailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Ridmik Dictionary");
 		    gmailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-		    gmailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"rafikamal93@gmail.com"});
+		    gmailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"ridmiklab@gmail.com"});
 		    startActivity(gmailIntent);
 		} catch(Exception exception) {
 			Toast.makeText(this, "Sorry, email isn't supported in this device", Toast.LENGTH_SHORT);

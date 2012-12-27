@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ridmikLogo"
             android:paddingLeft="123dp"
-            android:text="Ridmik Keyboard"
+            android:text="Ridmik Dictionary"
             android:textStyle="bold"
             android:textColor="#834723"
             android:textSize="18dp" />
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ridmikLogo"
             android:layout_centerHorizontal="true"
-            android:text="v2.0.0" />
+            android:text="v1.0.0" />
 
         <buet.rafi.dictionary.ScrollingTextView
             android:id="@+id/scrolling"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ridmikKeyboard"
             android:layout_below="@+id/ridmikKeyboard"
-            android:text="Email Me"
+            android:text="Email Us"
             android:textStyle="bold"
             android:textSize="16dp"
             android:textColor="#C75769"

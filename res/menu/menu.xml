@@ -9,7 +9,7 @@
   -->
  <item 
      android:id="@+id/bookmarked_words"
-     android:title="Bookmarkes"
+     android:title="Bookmarks"
      android:icon="@drawable/bookmarked_words"  
      android:showAsAction="ifRoom"/>
  <item 
