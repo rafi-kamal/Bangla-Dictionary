@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/background_light"
     android:padding="12dip" >
 
     <TextView
@@ -13,6 +14,7 @@
 
     <EditText
         android:id="@+id/english_input"
+        android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -27,6 +29,7 @@
 
     <EditText
         android:id="@+id/Bangla_input"
+        android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

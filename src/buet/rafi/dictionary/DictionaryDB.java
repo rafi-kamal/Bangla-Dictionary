@@ -24,7 +24,7 @@ public class DictionaryDB {
 		this.initializer = initializer;
 	}
 	
-	/*
+	
 	public void addWord(String englishWord, String banglaWord) {
 		SQLiteDatabase db = initializer.getWritableDatabase();
 		
@@ -33,16 +33,17 @@ public class DictionaryDB {
 				"', '" + banglaWord + "', '" + USER_CREATED + "') ";
 		db.execSQL(sql);
 	}
-	*/
+	
 	
 	public List<Bean> getWords(String englishWord) {
-		/*if(englishWord.length() < 2)
+		if(englishWord.length() == 0)
 			return new ArrayList<Bean>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " LIKE '" + englishWord + "%' ";*/
-		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 200";
+    			" WHERE " + ENGLISH + " LIKE '" + englishWord +
+    			"%' ORDER BY " + ENGLISH + " LIMIT 150";
+		/*String sql = "SELECT * FROM " + TABLE_NAME +
+    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 200";*/
 		
 		SQLiteDatabase db = initializer.getReadableDatabase();
         if(db.isOpen()) {

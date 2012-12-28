@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ridmikLogo"
             android:layout_centerHorizontal="true"
-            android:text="v1.0.0" />
+            android:text="v2.1" />
 
         <buet.rafi.dictionary.ScrollingTextView
             android:id="@+id/scrolling"

@@ -1,18 +1,25 @@
 package buet.rafi.dictionary;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Dictionary extends ListActivity {
 	private EditText input;
+	private TextView empty;
 	
 	private DictionaryDB dictionaryDB;
 	private WordListAdapter adapter;
@@ -29,6 +36,7 @@ public class Dictionary extends ListActivity {
         dictionaryDB = new DictionaryDB(initializer);
         
         input = (EditText) findViewById(R.id.input);
+        empty = (TextView) findViewById(android.R.id.empty);
         
         adapter = new WordListAdapter(getBaseContext(), dictionaryDB);
 		setListAdapter(adapter);
@@ -53,6 +61,10 @@ public class Dictionary extends ListActivity {
     private void loadData(String word) {
 		DataLoader loader = new DataLoader(dictionaryDB, adapter);
 		loader.execute(word);
+		if(word.equals(""))
+			empty.setText("");
+		else
+			empty.setText("No match found");
     }
     
     @Override
@@ -100,14 +112,14 @@ public class Dictionary extends ListActivity {
     		dialog.show();
     		*/
     	}
-    	/*
+    	
     	else if(item.getItemId() == R.id.add_new) {
     		showInputDialog();
     	}
-    	*/
+    	
     	return super.onOptionsItemSelected(item);	
     }
-    /*
+    
 	public void showInputDialog() {
 		LayoutInflater factory = LayoutInflater.from(this);
 
@@ -129,10 +141,15 @@ public class Dictionary extends ListActivity {
 
 							String englishWord = english.getText().toString();
 							String banglaWord = bangla.getText().toString();
-							dictionaryDB.addWord(englishWord, banglaWord);
-							
-							Toast.makeText(getBaseContext(), "Word Added to the Dictionary",
-									Toast.LENGTH_SHORT).show();
+							if((englishWord.equals("") || banglaWord.equals("")))
+								Toast.makeText(getBaseContext(), "Field can't be blank",
+										Toast.LENGTH_SHORT).show();
+							else {
+								dictionaryDB.addWord(englishWord, banglaWord);
+								
+								Toast.makeText(getBaseContext(), "Word Added to the Dictionary",
+										Toast.LENGTH_SHORT).show();
+							}
 						}
 					})
 			.setNegativeButton("Cancel",
@@ -144,5 +161,4 @@ public class Dictionary extends ListActivity {
 					});
 		newWordInputDialog.show();
 	}
-	*/
 }

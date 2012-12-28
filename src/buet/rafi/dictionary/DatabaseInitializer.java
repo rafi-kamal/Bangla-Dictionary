@@ -61,7 +61,7 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
          */
         getWritableDatabase();
 
-        if (createDatabase || upgradeDatabase) {
+        if (createDatabase) {
             /*
              * If the database is created by the copy method, then the creation
              * code needs to go here. This method consists of copying the new

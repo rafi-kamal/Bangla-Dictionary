@@ -21,8 +21,8 @@ public class About extends Activity {
 		scrollingText += "\nRafi Kamal\n\n";
 		scrollingText += "Your support and suggestions\nare very important to make it better!\n";
 		scrollingText += "\nThanks to:\n\n";
-		scrollingText += "Shamim Hasnath, Saminur Islam,\nJamshed Khan Mukut, Hasan Almir,\n";
-		scrollingText += "Anika Tabassum, Faysal Hossain\n";
+		scrollingText += "Shamim Hasnath, Saminur Islam,\nJamshed Khan Mukut, Nawfil Afif Nibir,\n";
+		scrollingText += "Hasan Almir, Faysal Hossain\n";
 		scrollingText += "and\nShawly Samira\n\n";
 		scrollingText += "for the friendly support!";
 		scrolling.setText(scrollingText);
