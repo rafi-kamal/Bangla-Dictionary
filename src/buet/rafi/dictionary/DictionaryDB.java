@@ -36,8 +36,8 @@ public class DictionaryDB {
 	
 	
 	public List<Bean> getWords(String englishWord) {
-		if(englishWord.length() == 0)
-			return new ArrayList<Bean>();
+		if(englishWord.equals(""))
+			englishWord = "a";
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
     			" WHERE " + ENGLISH + " LIKE '" + englishWord +
