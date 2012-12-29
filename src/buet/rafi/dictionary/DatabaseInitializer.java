@@ -27,7 +27,7 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
     private static String DB_NAME = "dictionary";
     private static String DB_PATH = DB_DIR + DB_NAME;
     private static String OLD_DB_PATH = DB_DIR + "old_" + DB_NAME;
-    private static final int DB_VERSION = 39;
+    private static final int DB_VERSION = 51;
 
     private final Context myContext;
 
@@ -61,7 +61,7 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
          */
         getWritableDatabase();
 
-        if (createDatabase) {
+        if (createDatabase || upgradeDatabase) {
             /*
              * If the database is created by the copy method, then the creation
              * code needs to go here. This method consists of copying the new
@@ -132,7 +132,6 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
          * assets folder.
          */
         FileHelper.copyFile(myInput, myOutput);
-
         /*
          * Access the copied database so SQLiteHelper will cache it and mark it
          * as created.
@@ -165,6 +164,9 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
          * corrupted.
          */
         createDatabase = true;
+        
+        //db.execSQL("CREATE TABLE android_metadata ('locale' TEXT DEFAULT 'en_US')");
+        //db.execSQL("INSERT INTO android_metadata VALUES ('en_US')");
 
         /*
          * This will create by reading a sql file and executing the commands in
@@ -222,11 +224,11 @@ public class DatabaseInitializer extends SQLiteOpenHelper {
         // } catch (Exception ex) {
         // ex.printStackTrace();
         // }
-    	/*
-    	String sql = "DROP TABLE IF EXISTS " + Dictionary.TABLE_NAME;
-    	db.execSQL(sql);
-    	onCreate(db);
-    	*/
+    	
+    	//String sql = "DROP TABLE IF EXISTS " + DictionaryDB.TABLE_NAME;
+    	//db.execSQL(sql);
+    	//onCreate(db);
+    	
     }
 
     /**

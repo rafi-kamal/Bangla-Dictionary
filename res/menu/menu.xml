@@ -8,7 +8,7 @@
      android:showAsAction="ifRoom"/>
  <item 
      android:id="@+id/bookmarked_words"
-     android:title="Bookmarks"
+     android:title="Favourites"
      android:icon="@drawable/bookmarked_words"  
      android:showAsAction="ifRoom"/>
  <item 

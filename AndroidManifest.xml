@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="buet.rafi.dictionary"
-    android:versionCode="3"
-    android:versionName="2.1" >
+    android:versionCode="4"
+    android:versionName="2.2" >
 
     <uses-sdk android:minSdkVersion="8"
         android:targetSdkVersion="11" />
@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="BookMarkedWords" android:label="Bookmarks"></activity>
+        <activity android:name="BookMarkedWords" android:label="Favourites"></activity>
         <activity android:name="About" android:label="About"></activity>
     </application>
 
