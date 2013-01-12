@@ -3,7 +3,9 @@ COPYING.txt for Ridmik Dictionary
 Ridmik Dictionary - An open source english-bangla dictionary
 
 Rafi Kamal, December 2012
-For more information mail me at rafikamal93@gmail.com
+Dept of CSE, BUET
+
+For more information mail me at rafikamal93 AT gmail DOT com
 
 ----------------------------------------
 
