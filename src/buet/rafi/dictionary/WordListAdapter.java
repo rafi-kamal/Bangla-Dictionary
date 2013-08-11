@@ -3,7 +3,10 @@ package buet.rafi.dictionary;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +19,11 @@ import android.widget.Toast;
 public class WordListAdapter extends BaseAdapter {
 
 	private List<Bean> wordList;
-	private Context context;
+	private Activity context;
 	private LayoutInflater mLayoutInflater;
 	private DictionaryDB dictionaryDB;
 	
-	public WordListAdapter(Context context, DictionaryDB dictionaryDB) {
+	public WordListAdapter(Activity context, DictionaryDB dictionaryDB) {
 		this.context = context;
 		this.dictionaryDB = dictionaryDB;
 		mLayoutInflater = (LayoutInflater) context
@@ -81,7 +84,21 @@ public class WordListAdapter extends BaseAdapter {
 	}
 	
 	public void updateEntries(List<Bean> wordList) {
-		this.wordList = wordList;
-		notifyDataSetChanged();
+		if (wordList == null) {
+			AlertDialog dialog = new AlertDialog.Builder(context)
+				.setTitle("Sorry!")
+				.setMessage("Your phone doesn't support pre-built database")
+				.setNeutralButton("Exit", new DialogInterface.OnClickListener() {
+					
+					public void onClick(DialogInterface dialog, int which) {
+						context.finish();
+					}
+				})
+				.create();
+			dialog.show();
+		} else {
+			this.wordList = wordList;
+			notifyDataSetChanged();
+		}
 	}
 }

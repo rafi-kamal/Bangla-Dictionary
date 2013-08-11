@@ -1,10 +1,7 @@
 package buet.rafi.dictionary;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 

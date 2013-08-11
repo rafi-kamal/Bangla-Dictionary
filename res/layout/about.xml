@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/relativeLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="30dp"
+        android:gravity="center" >
 
         <ImageView
             android:id="@+id/ridmikLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="57dp"
-            android:layout_marginTop="24dp"
+            android:layout_weight="1"
             android:src="@drawable/ridmik_logo" />
 
-        <TextView
-            android:id="@+id/ridmikTitle"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ridmikLogo"
-            android:paddingLeft="123dp"
-            android:text="Ridmik Dictionary"
-            android:textStyle="bold"
-            android:textColor="#834723"
-            android:textSize="18dp" />
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ridmikLogo"
-            android:layout_centerHorizontal="true"
-            android:text="v2.2" />
+            <TextView
+                android:id="@+id/ridmikTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ridmik Dictionary"
+                android:textColor="#834723"
+                android:gravity="center"
+                android:textStyle="bold" />
 
-        <buet.rafi.dictionary.ScrollingTextView
-            android:id="@+id/scrolling"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp"
-            android:layout_below="@+id/version"
-            android:layout_marginTop="44dp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:text="scrolling" />
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="v2.3" />
+        </LinearLayout>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/ridmikKeyboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ridmikLogo"
-            android:layout_below="@+id/scrolling"
-            android:layout_marginTop="53dp"
-            android:text="Ridmik Bangla Keyboard"
-            android:onClick="ridmikKeyboardClicked"
-            android:textColor="#C75769"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:clickable="true" />
+    <buet.rafi.dictionary.ScrollingTextView
+        android:id="@+id/scrolling"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="scrolling"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ridmikKeyboard"
-            android:layout_below="@+id/ridmikKeyboard"
-            android:text="Email Us"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="#C75769"
-            android:onClick="emailClicked"
-            android:clickable="true" />
+    <TextView
+        android:id="@+id/ridmikKeyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:onClick="ridmikKeyboardClicked"
+        android:text="Ridmik Bangla Keyboard"
+        android:textColor="#C75769"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/email"
-            android:layout_below="@+id/email"
-            android:text="Find Us On Facebook"
-            android:onClick="commentClicked"
-            android:textStyle="bold"
-            android:textColor="#C75769"
-            android:textSize="16dp"
-            android:clickable="true" />
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="emailClicked"
+        android:text="Email Us"
+        android:textColor="#C75769"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="commentClicked"
+        android:text="Find Us On Facebook"
+        android:textColor="#C75769"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+
+</LinearLayout>

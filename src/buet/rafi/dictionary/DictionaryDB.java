@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 public class DictionaryDB {
 	
@@ -40,14 +41,13 @@ public class DictionaryDB {
 			return new ArrayList<Bean>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " LIKE '" + englishWord +
-    			"%' ORDER BY " + ENGLISH + " LIMIT 150";
-		/*String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " >= '" + englishWord + "' LIMIT 200";*/
+    			" WHERE " + ENGLISH + " LIKE ? ORDER BY " + ENGLISH + " LIMIT 100";
 		
 		SQLiteDatabase db = initializer.getReadableDatabase();
-        if(db.isOpen()) {
-	        Cursor cursor = db.rawQuery(sql, null);
+		
+		Cursor cursor = null;
+		try {
+	        cursor = db.rawQuery(sql, new String[]{englishWord + "%"});
 	        
 	        List<Bean> wordList = new ArrayList<Bean>();
 	        while(cursor.moveToNext()) {
@@ -58,10 +58,14 @@ public class DictionaryDB {
 				wordList.add(new Bean(id, english, bangla, status));
 			}
 	        
-	        //db.close();
 	        return wordList;
-        }
-        return new ArrayList<Bean>();
+		} catch (SQLiteException exception) {
+			exception.printStackTrace();
+			return null;
+		} finally {
+			if (cursor != null)
+				cursor.close();
+		}
 	}
 	
 	public List<Bean> getBookmarkedWords() {
@@ -81,6 +85,7 @@ public class DictionaryDB {
 			wordList.add(new Bean(id, english, bangla, status));
 		}
         
+        cursor.close();
         db.close();
         return wordList;
 	}

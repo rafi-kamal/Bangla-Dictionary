@@ -38,7 +38,7 @@ public class Dictionary extends ListActivity {
         input = (EditText) findViewById(R.id.input);
         empty = (TextView) findViewById(android.R.id.empty);
         
-        adapter = new WordListAdapter(getBaseContext(), dictionaryDB);
+        adapter = new WordListAdapter(this, dictionaryDB);
 		setListAdapter(adapter);
         
         input.addTextChangedListener(new TextWatcher() {
@@ -70,7 +70,6 @@ public class Dictionary extends ListActivity {
     @Override
     protected void onResume() {
     	super.onResume();
-    	//if(!input.getText().toString().equals(""))
     	loadData(input.getText().toString());
     }
     
@@ -81,15 +80,6 @@ public class Dictionary extends ListActivity {
         return true;
     }
     
-    /*
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		if (ev.getAction() == MotionEvent.ACTION_MOVE)
-			return true;
-		return super.dispatchTouchEvent(ev);
-	}
-	*/
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	if(item.getItemId() == R.id.bookmarked_words) {
@@ -99,18 +89,6 @@ public class Dictionary extends ListActivity {
     	else if(item.getItemId() == R.id.about) {
     		Intent intent = new Intent(this, About.class);
     		startActivity(intent);
-    		/*
-    		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-    		
-    		TextView textView = new TextView(this);
-    		textView.setTypeface(Typeface.createFromAsset(getAssets(), Dictionary.FONT));
-    		textView.setPadding(10, 10, 10, 10);
-    		textView.setText("Bangla Dictionary\nDeveloped by:\nRafi Kamal\nBUET CSE '10");
-    		
-    		dialog.setView(textView);
-    		dialog.setNeutralButton("Ok", null);
-    		dialog.show();
-    		*/
     	}
     	
     	else if(item.getItemId() == R.id.add_new) {
