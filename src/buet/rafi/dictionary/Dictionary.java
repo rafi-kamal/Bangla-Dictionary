@@ -1,7 +1,6 @@
 package buet.rafi.dictionary;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -17,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Dictionary extends ListActivity {
+public class Dictionary extends ActionBarListActivity {
 	private EditText input;
 	private TextView empty;
 	

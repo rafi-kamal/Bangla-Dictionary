@@ -2,10 +2,9 @@ package buet.rafi.dictionary;
 
 import java.util.List;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 
-public class BookMarkedWords extends ListActivity {
+public class BookMarkedWords extends ActionBarListActivity {
 	
 	private DictionaryDB dictionaryDB;
 	private WordListAdapter adapter;
