@@ -100,13 +100,30 @@ public class MainActivity extends ActionBarActivity {
 	
 	public Fragment getFragmentAtPoistion(int position) {
 		Fragment fragment = null;
+		Bundle args = new Bundle();
 		switch (position) {
 		case 0:
 			fragment = new Dictionary();
-			Bundle args = new Bundle();
-			fragment.setArguments(args);
+			break;
+			
+		case 1:
+			fragment = new Dictionary();
+			break;
+			
+		case 2:
+			fragment = new BookMarkedWords();
+			break;
+			
+		case 3:
+			fragment = new BookMarkedWords();
+			break;
+			
+		case 4:
+			fragment = new About();
+			break;
 		}
 		
+		fragment.setArguments(args);
 		return fragment;
 	}
 
