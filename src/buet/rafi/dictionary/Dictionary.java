@@ -1,5 +1,8 @@
 package buet.rafi.dictionary;
 
+import java.util.List;
+
+import buet.rafi.dictionary.DataLoader.CallBack;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +21,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Dictionary extends ListFragment {
-	private EditText input;
+public class Dictionary extends ListFragment implements CallBack {
+	private EditText inputField;
 	private TextView empty;
 	
 	private DictionaryDB dictionaryDB;
@@ -35,16 +38,16 @@ public class Dictionary extends ListFragment {
         initializer.initializeDataBase();
         dictionaryDB = new DictionaryDB(initializer);
         
-        input = (EditText) view.findViewById(R.id.input);
+        inputField = (EditText) view.findViewById(R.id.input);
         empty = (TextView) view.findViewById(android.R.id.empty);
         
         adapter = new WordListAdapter(getActivity(), dictionaryDB);
 		setListAdapter(adapter);
         
-        input.addTextChangedListener(new TextWatcher() {
+        inputField.addTextChangedListener(new TextWatcher() {
 			
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				loadData(input.getText().toString());
+				loadData(inputField.getText().toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -61,18 +64,14 @@ public class Dictionary extends ListFragment {
     }
     
     private void loadData(String word) {
-		DataLoader loader = new DataLoader(dictionaryDB, adapter);
+		DataLoader loader = new DataLoader(dictionaryDB, this);
 		loader.execute(word);
-		if(word.equals(""))
-			empty.setText("");
-		else
-			empty.setText("No match found");
     }
     
     @Override
 	public void onResume() {
     	super.onResume();
-    	loadData(input.getText().toString());
+    	loadData(inputField.getText().toString());
     }
     
     @Override
@@ -130,13 +129,19 @@ public class Dictionary extends ListFragment {
 							}
 						}
 					})
-			.setNegativeButton("Cancel",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							
-						}
-					});
+			.setNegativeButton("Cancel", null);
 		newWordInputDialog.show();
+	}
+
+	public void onLoadResult(List<Bean> result) {
+		adapter.updateEntries(result);
+	}
+
+	public void onEmptyResult() {
+		String input = inputField.getText().toString();
+		if (input.length() == 0)
+			empty.setText("");
+		else
+			empty.setText("No match found");
 	}
 }

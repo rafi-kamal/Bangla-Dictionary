@@ -7,21 +7,35 @@ import android.os.AsyncTask;
 
 public class DataLoader extends AsyncTask<String, Void, List<Bean>> {
 	
-	private DictionaryDB dictionaryDB;
-	private WordListAdapter adapter;
+	public interface CallBack {
+		/**
+		 * What to do after loading the result
+		 */
+		public void onLoadResult(List<Bean> result);
+		
+		/*
+		 * What to do if the result is empty (no match found)
+		 */
+		public void onEmptyResult();
+	}
 	
-	public DataLoader(DictionaryDB dictionaryDB, WordListAdapter adapter) {
-		this.dictionaryDB = dictionaryDB;
-		this.adapter = adapter;
+	private CallBack callBack;
+	private DictionaryDB db;
+	
+	public DataLoader(DictionaryDB db, CallBack callBack) {
+		this.db = db;
+		this.callBack = callBack;
 	}
 
 	@Override
 	protected List<Bean> doInBackground(String... params) {
-		return dictionaryDB.getWords(params[0]);
+		return db.getWords(params[0]);
 	}
 	
 	@Override
 	protected void onPostExecute(List<Bean> result) {
-		adapter.updateEntries(result);
+		if (result.size() == 0)
+			callBack.onEmptyResult();
+		callBack.onLoadResult(result);
 	}
 }

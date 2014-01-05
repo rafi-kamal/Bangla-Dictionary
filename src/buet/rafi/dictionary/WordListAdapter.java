@@ -49,9 +49,11 @@ public class WordListAdapter extends BaseAdapter {
 		if (view == null) {
 			view = mLayoutInflater.inflate(R.layout.word, null);
 		}
+		
 		TextView english = (TextView) view.findViewById(R.id.english);
 		TextView bangla = (TextView) view.findViewById(R.id.bangla);
 		final ImageButton bookmark = (ImageButton) view.findViewById(R.id.bookmark);
+		
 		bangla.setTypeface(Typeface.createFromAsset(context.getAssets(), Dictionary.FONT));
 		
 		english.setText(word.english);
