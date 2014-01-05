@@ -2,8 +2,7 @@
 <resources>
     <string name="app_name">Ridmik Dictionary</string>
 	<string-array name="drawer_items">
-	    <item >English to Bangla</item>
-	    <item >Bangla to English</item>
+	    <item >Dictionary</item>
 	    <item >Bookmarked Words</item>
 	    <item >My Words</item>
 	    <item >About</item>

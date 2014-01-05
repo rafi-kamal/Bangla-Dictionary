@@ -6,13 +6,20 @@
     <!-- The main content view -->
 
     <FrameLayout
-        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/fragment_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </LinearLayout>
+    </FrameLayout>
     <!-- The navigation drawer -->
 
     <ListView
-        android:id="@+id/left_drawer"
+        android:id="@+id/drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

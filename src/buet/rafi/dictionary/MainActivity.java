@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,8 @@ public class MainActivity extends ActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	
+	private ActionBarDrawerToggle mDrawerToggle;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
 
         mDrawerItemTitles = getResources().getStringArray(R.array.drawer_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList = (ListView) findViewById(R.id.drawer);
         
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         
@@ -36,26 +40,18 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setAdapter(drawerAdapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description */
-                R.string.drawer_close  /* "close drawer" description */
-                ) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                //invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
 
-            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                //invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
         };
 
-        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +65,6 @@ public class MainActivity extends ActionBarActivity {
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 	
@@ -81,12 +76,9 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-          return true;
+        	return true;
         }
-        // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
     }
@@ -94,20 +86,49 @@ public class MainActivity extends ActionBarActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        selectItem(position);
+	    	selectItem(position);
 	    }
+	}
+
+	private void selectItem(int position) {
+	    mDrawerList.setItemChecked(position, true);
+	    mDrawerLayout.closeDrawer(mDrawerList);
+	    
+		ActionBar actionBar = getSupportActionBar();
+    	
+    	if (position == 0) {
+    		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    		
+    		Tab e2bTab = actionBar.newTab().setText("E2B");
+    		Tab b2eTab = actionBar.newTab().setText("B2E");
+    		
+    		Fragment e2bFragment = new Dictionary();
+    		Fragment b2eFragment = new Dictionary();
+    		
+    		e2bTab.setTabListener(new MyTabListener(e2bFragment));
+    		b2eTab.setTabListener(new MyTabListener(b2eFragment));
+    		
+    		actionBar.addTab(e2bTab);
+    		actionBar.addTab(b2eTab);
+    	}
+    	else {
+    		actionBar.removeAllTabs();
+    		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+    		
+    		FragmentManager fragmentManager = getSupportFragmentManager();
+    		fragmentManager.beginTransaction()
+	                   .replace(R.id.fragment_container, getFragmentAtPoistion(position))
+	                   .commit();
+    	}
 	}
 	
 	public Fragment getFragmentAtPoistion(int position) {
 		Fragment fragment = null;
 		Bundle args = new Bundle();
 		switch (position) {
-		case 0:
-			fragment = new Dictionary();
-			break;
 			
 		case 1:
-			fragment = new Dictionary();
+			fragment = new BookMarkedWords();
 			break;
 			
 		case 2:
@@ -115,39 +136,11 @@ public class MainActivity extends ActionBarActivity {
 			break;
 			
 		case 3:
-			fragment = new BookMarkedWords();
-			break;
-			
-		case 4:
 			fragment = new About();
 			break;
 		}
 		
 		fragment.setArguments(args);
 		return fragment;
-	}
-
-	/** Swaps fragments in the main content view */
-	private void selectItem(int position) {
-	    // Create a new fragment and specify the planet to show based on position
-	    
-
-	    // Insert the fragment by replacing any existing fragment
-	    FragmentManager fragmentManager = getSupportFragmentManager();
-	    fragmentManager.beginTransaction()
-	                   .replace(R.id.content_frame, getFragmentAtPoistion(position))
-	                   .commit();
-
-	    // Highlight the selected item, update the title, and close the drawer
-	    mDrawerList.setItemChecked(position, true);
-	    setTitle(mDrawerItemTitles[position]);
-	    mDrawerLayout.closeDrawer(mDrawerList);
-	}
-	
-    private ActionBarDrawerToggle mDrawerToggle;
-
-	@Override
-	public void setTitle(CharSequence title) {
-	    getSupportActionBar().setTitle(title);
 	}
 }
