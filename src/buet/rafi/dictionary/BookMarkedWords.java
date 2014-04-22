@@ -14,7 +14,7 @@ public class BookMarkedWords extends ListFragment {
 	private WordListAdapter adapter;
 	
 	@Override
-	public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.bookmarked, container, false);
 		
 		DatabaseInitializer initializer = new DatabaseInitializer(getActivity());
