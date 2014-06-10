@@ -25,6 +25,7 @@ public class DictionaryDB {
 		this.initializer = initializer;
 	}
 	
+	
 	public void addWord(String englishWord, String banglaWord) {
 		SQLiteDatabase db = initializer.getWritableDatabase();
 		
@@ -34,12 +35,13 @@ public class DictionaryDB {
 		db.execSQL(sql);
 	}
 	
+	
 	public List<Bean> getWords(String englishWord) {
 		if(englishWord.equals(""))
 			return new ArrayList<Bean>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
-    			" WHERE " + ENGLISH + " LIKE ? ORDER BY " + ENGLISH + " LIMIT 50";
+    			" WHERE " + ENGLISH + " LIKE ? ORDER BY " + ENGLISH + " LIMIT 100";
 		
 		SQLiteDatabase db = initializer.getReadableDatabase();
 		

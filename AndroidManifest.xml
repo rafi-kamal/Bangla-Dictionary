@@ -4,16 +4,15 @@
     android:versionCode="5"
     android:versionName="2.3" >
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="8"
+        android:targetSdkVersion="11" />
 
     <application
+        android:theme="@style/LightThemeSelector"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:label="@string/app_name" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Dictionary"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,16 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Dictionary" >
-        </activity>
-        <activity
-            android:name="BookMarkedWords"
-            android:label="Favourites" >
-        </activity>
-        <activity
-            android:name="About"
-            android:label="About" >
-        </activity>
+        <activity android:name="BookMarkedWords" android:label="Favourites"></activity>
+        <activity android:name="About" android:label="About"></activity>
     </application>
 
 </manifest>

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" 
-	xmlns:dictionary="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
  
  <item 
      android:id="@+id/add_new"
      android:title="Add New"
      android:icon="@drawable/plus"  
-     dictionary:showAsAction="ifRoom"/>
+     android:showAsAction="ifRoom"/>
  <item 
      android:id="@+id/bookmarked_words"
      android:title="Favourites"
      android:icon="@drawable/bookmarked_words"  
-     dictionary:showAsAction="ifRoom"/>
+     android:showAsAction="ifRoom"/>
  <item 
      android:id="@+id/about"
      android:title="About"
      android:icon="@drawable/about"  
-     dictionary:showAsAction="ifRoom"/>
+     android:showAsAction="ifRoom"/>
 </menu>

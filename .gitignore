@@ -1,5 +1,6 @@
 /gen
 /bin
 /extras
-/res/layout/about.xml
+/src/buet/rafi/dictionary/About.java
 /src/buet/rafi/dictionary/ScrollingTextView.java
+/res/layout/about.xml

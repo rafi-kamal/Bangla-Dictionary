@@ -1,14 +1,11 @@
 package buet.rafi.dictionary;
 
-import java.util.List;
-
-import buet.rafi.dictionary.DataLoader.CallBack;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,13 +13,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Dictionary extends ListFragment implements CallBack {
-	private EditText inputField;
+public class Dictionary extends ListActivity {
+	private EditText input;
 	private TextView empty;
 	
 	private DictionaryDB dictionaryDB;
@@ -31,23 +27,24 @@ public class Dictionary extends ListFragment implements CallBack {
 	public static final String FONT = "SolaimanLipi.ttf";
 	
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dictionary, container, false); 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
         
-        DatabaseInitializer initializer = new DatabaseInitializer(getActivity());
+        DatabaseInitializer initializer = new DatabaseInitializer(getBaseContext());
         initializer.initializeDataBase();
         dictionaryDB = new DictionaryDB(initializer);
         
-        inputField = (EditText) view.findViewById(R.id.input);
-        empty = (TextView) view.findViewById(android.R.id.empty);
+        input = (EditText) findViewById(R.id.input);
+        empty = (TextView) findViewById(android.R.id.empty);
         
-        adapter = new WordListAdapter(getActivity(), dictionaryDB);
+        adapter = new WordListAdapter(this, dictionaryDB);
 		setListAdapter(adapter);
         
-        inputField.addTextChangedListener(new TextWatcher() {
+        input.addTextChangedListener(new TextWatcher() {
 			
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				loadData(inputField.getText().toString());
+				loadData(input.getText().toString());
 			}
 			
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -59,34 +56,38 @@ public class Dictionary extends ListFragment implements CallBack {
 				
 			}
 		});
-        
-        return view;
     }
     
     private void loadData(String word) {
-		DataLoader loader = new DataLoader(dictionaryDB, this);
+		DataLoader loader = new DataLoader(dictionaryDB, adapter);
 		loader.execute(word);
+		if(word.equals(""))
+			empty.setText("");
+		else
+			empty.setText("No match found");
     }
     
     @Override
-	public void onResume() {
+    protected void onResume() {
     	super.onResume();
-    	loadData(inputField.getText().toString());
+    	loadData(input.getText().toString());
     }
     
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    	inflater.inflate(R.menu.menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	if(item.getItemId() == R.id.bookmarked_words) {
-    		Intent intent = new Intent(getActivity(), BookMarkedWords.class);
+    		Intent intent = new Intent(this, BookMarkedWords.class);
     		startActivity(intent);
     	}
     	else if(item.getItemId() == R.id.about) {
-    		Intent intent = new Intent(getActivity(), About.class);
+    		Intent intent = new Intent(this, About.class);
     		startActivity(intent);
     	}
     	
@@ -98,16 +99,16 @@ public class Dictionary extends ListFragment implements CallBack {
     }
     
 	public void showInputDialog() {
-		LayoutInflater factory = LayoutInflater.from(getActivity());
+		LayoutInflater factory = LayoutInflater.from(this);
 
 		final View addNew = factory.inflate(R.layout.add_new, null);
 
 		final EditText english = (EditText) addNew.findViewById(R.id.english_input);
 		final EditText bangla = (EditText) addNew.findViewById(R.id.Bangla_input);
 		
-		bangla.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), Dictionary.FONT));
+		bangla.setTypeface(Typeface.createFromAsset(getAssets(), Dictionary.FONT));
 
-		final AlertDialog.Builder newWordInputDialog = new AlertDialog.Builder(getActivity());
+		final AlertDialog.Builder newWordInputDialog = new AlertDialog.Builder(this);
 		newWordInputDialog
 			.setTitle("Add a new word")
 			.setView(addNew)
@@ -119,29 +120,23 @@ public class Dictionary extends ListFragment implements CallBack {
 							String englishWord = english.getText().toString();
 							String banglaWord = bangla.getText().toString();
 							if((englishWord.equals("") || banglaWord.equals("")))
-								Toast.makeText(getActivity(), "Field can't be blank",
+								Toast.makeText(getBaseContext(), "Field can't be blank",
 										Toast.LENGTH_SHORT).show();
 							else {
 								dictionaryDB.addWord(englishWord, banglaWord);
 								
-								Toast.makeText(getActivity(), "Word Added to the Dictionary",
+								Toast.makeText(getBaseContext(), "Word Added to the Dictionary",
 										Toast.LENGTH_SHORT).show();
 							}
 						}
 					})
-			.setNegativeButton("Cancel", null);
+			.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							
+						}
+					});
 		newWordInputDialog.show();
-	}
-
-	public void onLoadResult(List<Bean> result) {
-		adapter.updateEntries(result);
-	}
-
-	public void onEmptyResult() {
-		String input = inputField.getText().toString();
-		if (input.length() == 0)
-			empty.setText("");
-		else
-			empty.setText("No match found");
 	}
 }

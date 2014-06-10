@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ridmik Dictionary</string>
-	<string-array name="drawer_items">
-	    <item >Dictionary</item>
-	    <item >Bookmarked Words</item>
-	    <item >My Words</item>
-	    <item >About</item>
-	</string-array>
-	<string name="drawer_open">Open Drawer</string>
-	<string name="drawer_close">Close Drawer</string>
+
 </resources>
