@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ridmik Dictionary</string>
+    <string name="title_activity_favourites">Favourites</string>
+    <string name="title_activity_about">About</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package buet.rafi.dictionary;
+package buet.rafi.dictionary.db;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import buet.rafi.dictionary.util.FileHelper;
 
 /**
  * @author Danny Remington - MacroSolve

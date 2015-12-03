@@ -1,4 +1,4 @@
-package buet.rafi.dictionary;
+package buet.rafi.dictionary.activity;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -16,8 +16,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import buet.rafi.dictionary.R;
+import buet.rafi.dictionary.R.id;
+import buet.rafi.dictionary.R.layout;
+import buet.rafi.dictionary.R.menu;
+import buet.rafi.dictionary.adapter.WordListAdapter;
+import buet.rafi.dictionary.db.DataLoader;
+import buet.rafi.dictionary.db.DatabaseInitializer;
+import buet.rafi.dictionary.db.DictionaryDB;
 
-public class Dictionary extends ListActivity {
+public class DictionaryActivity extends ListActivity {
 	private EditText input;
 	private TextView empty;
 	
@@ -83,11 +91,11 @@ public class Dictionary extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	if(item.getItemId() == R.id.bookmarked_words) {
-    		Intent intent = new Intent(this, BookMarkedWords.class);
+    		Intent intent = new Intent(this, BookMarkedWordsActivity.class);
     		startActivity(intent);
     	}
     	else if(item.getItemId() == R.id.about) {
-    		Intent intent = new Intent(this, About.class);
+    		Intent intent = new Intent(this, AboutActivity.class);
     		startActivity(intent);
     	}
     	
@@ -106,7 +114,7 @@ public class Dictionary extends ListActivity {
 		final EditText english = (EditText) addNew.findViewById(R.id.english_input);
 		final EditText bangla = (EditText) addNew.findViewById(R.id.Bangla_input);
 		
-		bangla.setTypeface(Typeface.createFromAsset(getAssets(), Dictionary.FONT));
+		bangla.setTypeface(Typeface.createFromAsset(getAssets(), DictionaryActivity.FONT));
 
 		final AlertDialog.Builder newWordInputDialog = new AlertDialog.Builder(this);
 		newWordInputDialog

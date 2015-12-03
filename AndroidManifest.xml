@@ -4,15 +4,16 @@
     android:versionCode="5"
     android:versionName="2.3" >
 
-    <uses-sdk android:minSdkVersion="8"
-        android:targetSdkVersion="11" />
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="23" />
 
     <application
-        android:theme="@style/LightThemeSelector"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/LightThemeSelector" >
         <activity
-            android:name=".Dictionary"
+            android:name="buet.rafi.dictionary.activity.DictionaryActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="BookMarkedWords" android:label="Favourites"></activity>
-        <activity android:name="About" android:label="About"></activity>
+        <activity
+            android:name="buet.rafi.dictionary.activity.BookMarkedWordsActivity"
+            android:label="@string/title_activity_favourites" >
+        </activity>
+        <activity
+            android:name="buet.rafi.dictionary.activity.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>

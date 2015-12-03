@@ -5,12 +5,12 @@
      android:id="@+id/add_new"
      android:title="Add New"
      android:icon="@drawable/plus"  
-     android:showAsAction="ifRoom"/>
+     android:showAsAction="always"/>
  <item 
      android:id="@+id/bookmarked_words"
      android:title="Favourites"
      android:icon="@drawable/bookmarked_words"  
-     android:showAsAction="ifRoom"/>
+     android:showAsAction="always"/>
  <item 
      android:id="@+id/about"
      android:title="About"

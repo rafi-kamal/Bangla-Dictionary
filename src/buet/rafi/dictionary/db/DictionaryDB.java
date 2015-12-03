@@ -1,4 +1,4 @@
-package buet.rafi.dictionary;
+package buet.rafi.dictionary.db;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import buet.rafi.dictionary.model.Word;
 
 public class DictionaryDB {
 	
@@ -36,9 +37,9 @@ public class DictionaryDB {
 	}
 	
 	
-	public List<Bean> getWords(String englishWord) {
-		if(englishWord.equals(""))
-			return new ArrayList<Bean>();
+	public List<Word> getWords(String englishWord) {
+//		if(englishWord.equals(""))
+//			return new ArrayList<Word>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
     			" WHERE " + ENGLISH + " LIKE ? ORDER BY " + ENGLISH + " LIMIT 100";
@@ -49,13 +50,13 @@ public class DictionaryDB {
 		try {
 	        cursor = db.rawQuery(sql, new String[]{englishWord + "%"});
 	        
-	        List<Bean> wordList = new ArrayList<Bean>();
+	        List<Word> wordList = new ArrayList<Word>();
 	        while(cursor.moveToNext()) {
 	        	int id = cursor.getInt(0);
 	        	String english = cursor.getString(1);
 	        	String bangla = cursor.getString(2);
 	        	String status = cursor.getString(3);
-				wordList.add(new Bean(id, english, bangla, status));
+				wordList.add(new Word(id, english, bangla, status));
 			}
 	        
 	        return wordList;
@@ -68,7 +69,7 @@ public class DictionaryDB {
 		}
 	}
 	
-	public List<Bean> getBookmarkedWords() {
+	public List<Word> getBookmarkedWords() {
 		SQLiteDatabase db = initializer.getReadableDatabase();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
@@ -76,13 +77,13 @@ public class DictionaryDB {
         
         Cursor cursor = db.rawQuery(sql, null);
         
-        List<Bean> wordList = new ArrayList<Bean>();
+        List<Word> wordList = new ArrayList<Word>();
         while(cursor.moveToNext()) {
         	int id = cursor.getInt(0);
         	String english = cursor.getString(1);
         	String bangla = cursor.getString(2);
         	String status = cursor.getString(3);
-			wordList.add(new Bean(id, english, bangla, status));
+			wordList.add(new Word(id, english, bangla, status));
 		}
         
         cursor.close();
