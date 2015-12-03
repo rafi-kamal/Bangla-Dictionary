@@ -17,9 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import buet.rafi.dictionary.R;
-import buet.rafi.dictionary.R.id;
-import buet.rafi.dictionary.R.layout;
-import buet.rafi.dictionary.R.menu;
 import buet.rafi.dictionary.adapter.WordListAdapter;
 import buet.rafi.dictionary.db.DataLoader;
 import buet.rafi.dictionary.db.DatabaseInitializer;
@@ -125,26 +122,28 @@ public class DictionaryActivity extends ListActivity {
 						public void onClick(DialogInterface dialog,
 								int whichButton) {
 
-							String englishWord = english.getText().toString();
-							String banglaWord = bangla.getText().toString();
-							if((englishWord.equals("") || banglaWord.equals("")))
-								Toast.makeText(getBaseContext(), "Field can't be blank",
-										Toast.LENGTH_SHORT).show();
-							else {
-								dictionaryDB.addWord(englishWord, banglaWord);
-								
-								Toast.makeText(getBaseContext(), "Word Added to the Dictionary",
-										Toast.LENGTH_SHORT).show();
-							}
+							addNewWord(english, bangla);
 						}
 					})
 			.setNegativeButton("Cancel",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							
-						}
+								int whichButton) {}
 					});
 		newWordInputDialog.show();
+	}
+
+	private void addNewWord(final EditText english, final EditText bangla) {
+		String englishWord = english.getText().toString();
+		String banglaWord = bangla.getText().toString();
+		if((englishWord.equals("") || banglaWord.equals("")))
+			Toast.makeText(this, "Field can't be blank",
+					Toast.LENGTH_SHORT).show();
+		else {
+			dictionaryDB.addWord(englishWord, banglaWord);
+			
+			Toast.makeText(this, "Word Added to the Dictionary",
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 }

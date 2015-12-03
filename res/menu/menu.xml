@@ -5,7 +5,7 @@
      android:id="@+id/add_new"
      android:title="Add New"
      android:icon="@drawable/plus"  
-     android:showAsAction="always"/>
+     android:showAsAction="ifRoom"/>
  <item 
      android:id="@+id/bookmarked_words"
      android:title="Favourites"
@@ -15,5 +15,5 @@
      android:id="@+id/about"
      android:title="About"
      android:icon="@drawable/about"  
-     android:showAsAction="ifRoom"/>
+     android:showAsAction="never"/>
 </menu>

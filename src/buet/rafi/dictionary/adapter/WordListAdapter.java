@@ -16,9 +16,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import buet.rafi.dictionary.R;
-import buet.rafi.dictionary.R.drawable;
-import buet.rafi.dictionary.R.id;
-import buet.rafi.dictionary.R.layout;
 import buet.rafi.dictionary.activity.DictionaryActivity;
 import buet.rafi.dictionary.db.DictionaryDB;
 import buet.rafi.dictionary.model.Word;
@@ -64,30 +61,36 @@ public class WordListAdapter extends BaseAdapter {
 		english.setText(word.english);
 		bangla.setText(word.bangla);
 		
-		if(word.status != null && word.status.equals(DictionaryDB.BOOKMARKED)) 
+		if(word.status != null && word.status.equals(DictionaryDB.BOOKMARKED)) {
 			bookmark.setImageResource(R.drawable.bookmarked);
-		else
+		}
+		else {
 			bookmark.setImageResource(R.drawable.not_bookmarked);
+		}
 		
 		bookmark.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				if(word.status != null && word.status.equals(DictionaryDB.BOOKMARKED)) {
-					dictionaryDB.deleteBookmark(word.id);
-					word.status = "";
-					bookmark.setImageResource(R.drawable.not_bookmarked);
-					Toast.makeText(context, "Bookmark Deleted", Toast.LENGTH_SHORT).show();
-				}
-				else {
-					dictionaryDB.bookmark(word.id);
-					word.status = DictionaryDB.BOOKMARKED;
-					bookmark.setImageResource(R.drawable.bookmarked);
-					Toast.makeText(context, "Bookmark Added", Toast.LENGTH_SHORT).show();
-				}
+				bookMarkWord(word, bookmark);
 			}
 		});
 		
 		return view;
+	}
+
+	private void bookMarkWord(final Word word, final ImageButton bookmark) {
+		if (word.status != null && word.status.equals(DictionaryDB.BOOKMARKED)) {
+			dictionaryDB.deleteBookmark(word.id);
+			word.status = "";
+			bookmark.setImageResource(R.drawable.not_bookmarked);
+			Toast.makeText(context, "Bookmark Deleted", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			dictionaryDB.bookmark(word.id);
+			word.status = DictionaryDB.BOOKMARKED;
+			bookmark.setImageResource(R.drawable.bookmarked);
+			Toast.makeText(context, "Bookmark Added", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public void updateEntries(List<Word> wordList) {

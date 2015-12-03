@@ -38,8 +38,6 @@ public class DictionaryDB {
 	
 	
 	public List<Word> getWords(String englishWord) {
-//		if(englishWord.equals(""))
-//			return new ArrayList<Word>();
 		
 		String sql = "SELECT * FROM " + TABLE_NAME +
     			" WHERE " + ENGLISH + " LIKE ? ORDER BY " + ENGLISH + " LIMIT 100";
